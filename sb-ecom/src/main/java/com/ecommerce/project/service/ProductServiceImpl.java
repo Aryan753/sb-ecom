@@ -41,6 +41,10 @@ public class ProductServiceImpl implements ProductService{
         List<ProductDTO> productDTOS=products.stream()
                 .map(product -> modelMapper.map(product,ProductDTO.class))
                 .collect(Collectors.toList());
+        //CHECK PRODUCT IS ZERO in the database
+        if(products.isEmpty()){
+            throw new APIException("No products exists");
+        }
         ProductResponse productResponse=new ProductResponse();
         productResponse.setContent(productDTOS);
         return productResponse;
@@ -83,6 +87,7 @@ public class ProductServiceImpl implements ProductService{
         List<ProductDTO> productDTOS=products.stream()
                 .map(product -> modelMapper.map(product,ProductDTO.class))
                 .collect(Collectors.toList());
+        //if product size is zero
         ProductResponse productResponse=new ProductResponse();
         productResponse.setContent(productDTOS);
         return productResponse;
