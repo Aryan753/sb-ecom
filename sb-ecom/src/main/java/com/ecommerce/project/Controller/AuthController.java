@@ -130,15 +130,23 @@ public class AuthController {
     }
     @GetMapping("/user")
     public ResponseEntity<?> getUserDetails(Authentication authentication) {
-        UserDetailsImpl userDetails= (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
-                userDetails.getUsername(), roles);
+            UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
+                    userDetails.getUsername(), roles);
 
-        return ResponseEntity.ok()
-                .body(response);
+            return ResponseEntity.ok()
+                    .body(response);
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signOutUser(){
+        ResponseCookie jwtCookie=jwtUtils.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,
+                        jwtCookie.toString())
+                .body(new MessageResponse("You have been signed out"));
     }
 }
