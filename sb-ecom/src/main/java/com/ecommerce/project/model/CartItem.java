@@ -24,5 +24,5 @@ public class CartItem {
     ,orphanRemoval = true)
     private List<CartItem> cartItems=new ArrayList<>();
 
-    private Double totalPrice=0.0;
+    private Double totalPrice=0.0D;
 }
