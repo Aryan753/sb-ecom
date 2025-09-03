@@ -10,19 +10,26 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "carts")
+@Table(name = "carts_items")
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @OneToMany(mappedBy = "cart",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}
-    ,orphanRemoval = true)
-    private List<CartItem> cartItems=new ArrayList<>();
+    private Long cartItemId;
 
-    private Double totalPrice=0.0D;
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private  Integer quantity;
+    private Double discount;
+    private Double productPrice;
+
+
 }
