@@ -17,11 +17,21 @@ public class AuthUtil {
     public String loggedInEmail(){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByUserName(authentication.getName()).
-                orElseThrow(()-> new UsernameNotFoundException("User with this username not found!"));
+                orElseThrow(()-> new UsernameNotFoundException("User not found with this username :"+authentication.getName()));
         return user.getEmail();
     }
-    public String loggedInUser(){
-        return null;
+    public Long loggedInUserId(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByUserName(authentication.getName()).
+                orElseThrow(()-> new UsernameNotFoundException("User not found with this username: "+authentication.getName()));
+        return user.getUserId();
+    }
+    public User loggedInUser(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByUserName(authentication.getName()).orElseThrow(
+                ()-> new UsernameNotFoundException("User ot found with this username: "+authentication.getName())
+        );
+        return user;
     }
 
 }

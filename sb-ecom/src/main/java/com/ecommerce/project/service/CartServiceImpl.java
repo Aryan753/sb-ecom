@@ -37,6 +37,7 @@ public class CartServiceImpl implements CartService{
     AuthUtil authUtil;
     @Override
     public CartDTO addProductToCart(Long productId, Integer quantity) {
+
         //find existing cart or create one
         Cart cart=createCart();
         //Retrieve the product details
@@ -65,7 +66,8 @@ public class CartServiceImpl implements CartService{
 
         //save cart item
         cartItemRepository.save(newCartItem);
-        product.setQuantity(product.getQuantity());
+        product.setQuantity(product.getQuantity() - quantity);
+        cart.getCartItems().add(newCartItem);
 
         cart.setTotalPrice((cart.getTotalPrice())+(product.getSpecialPrice()*quantity));
         cartRepository.save(cart);
@@ -92,6 +94,7 @@ public class CartServiceImpl implements CartService{
         cart.setTotalPrice(0.00);
         cart.setUser(authUtil.loggedInUser());
         Cart newCart=cartRepository.save(cart);
+
         return newCart;
     }
 }
