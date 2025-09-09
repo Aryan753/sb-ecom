@@ -2,7 +2,6 @@ package com.ecommerce.project.service;
 
 import com.ecommerce.project.exception.ResourceNotFoundException;
 import com.ecommerce.project.exception.APIException;
-import com.ecommerce.project.exception.ResourceNotFoundException;
 import com.ecommerce.project.model.Cart;
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.model.Product;
