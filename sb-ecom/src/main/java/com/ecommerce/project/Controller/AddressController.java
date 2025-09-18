@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -29,5 +28,24 @@ public class AddressController {
         User user=authUtil.loggedInUser();
         AddressDTO savedAddress=addressService.createAddress(addressDTO,user);
         return new ResponseEntity<>(savedAddress, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/addresses")
+    public ResponseEntity<List<AddressDTO>> getAddress(){
+        List<AddressDTO> addressDTOList=addressService.getAddress();
+        return new ResponseEntity<List<AddressDTO>>(addressDTOList,HttpStatus.OK);
+    }
+
+    @GetMapping("/addresses/{addressId}")
+    public ResponseEntity<AddressDTO> getAddressById(@PathVariable Long addressId){
+       AddressDTO addressDTO=addressService.getAddressById(addressId);
+        return new ResponseEntity<AddressDTO>(addressDTO,HttpStatus.OK);
+    }
+
+    @GetMapping("/users/addresses")
+    public ResponseEntity<List<AddressDTO>> getUserAddress(){
+        User user=authUtil.loggedInUser();
+        List<AddressDTO> addressDTOList=addressService.getUserAddress(user);
+        return new ResponseEntity<List<AddressDTO>>(addressDTOList,HttpStatus.OK);
     }
 }
