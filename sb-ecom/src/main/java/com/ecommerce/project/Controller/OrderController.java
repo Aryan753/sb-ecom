@@ -16,7 +16,7 @@ public class OrderController {
     @Autowired
     AuthUtil authUtil;
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
     @PostMapping("order/user/payment/{paymentMethod}")
     public ResponseEntity<OrderDTO> orderProducts(@PathVariable String paymentMethod,
                                                   @RequestBody OrderRequestDTO orderRequestDTO){
