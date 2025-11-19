@@ -73,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setDiscount(cartItem.getDiscount());
             orderItem.setOrderProductPrice(cartItem.getProductPrice());
             orderItem.setOrder(savedOrder);
+            orderItems.add(orderItem);
         }
         orderItems=orderItemRepository.saveAll(orderItems);
         //update product stock
