@@ -23,4 +23,5 @@ public class SwaggerConfig {
                         .addSecuritySchemes("Bearer Authorization", barerScheme))
                 .addSecurityItem(securityRequirement);
     }
+
 }
